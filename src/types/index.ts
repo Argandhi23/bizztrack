@@ -3,7 +3,8 @@ export interface Project {
   title: string;
   slug: string;
   description: string;
-  image_url: string;
+  image_url?: string; // Gambar tunggal (untuk backward compatibility)
+  images?: string[];  // <--- TAMBAHKAN INI (Untuk gambar banyak / slider)
   tech_stack: string[];
   client_name?: string;
   live_url?: string;

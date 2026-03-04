@@ -1,8 +1,23 @@
 'use client';
 
 import Link from 'next/link';
-import { Instagram, Linkedin, Twitter, Mail, MapPin, Phone, ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Instagram, Facebook, ShoppingBag, Mail, MapPin, Phone, ArrowRight } from 'lucide-react';
+
+// Custom SVG Icon untuk TikTok agar senada dengan desain Lucide Icons
+const TikTokIcon = ({ size = 18 }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+  >
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+  </svg>
+);
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -44,15 +59,21 @@ export default function Footer() {
             <p className="text-slate-400 leading-relaxed text-sm">
               Partner digital terpercaya untuk Bisnis Indonesia. Kami tidak sekadar membuat website, kami membangun solusi untuk mempercepat pertumbuhan bisnis Anda.
             </p>
-            <div className="flex gap-4 pt-2">
-              <Link href="#" className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-teal-600 hover:text-white transition-colors duration-300">
+            
+            {/* Ikon Medsos (Telah Direvisi) */}
+            <div className="flex flex-wrap gap-4 pt-2">
+              <Link href="https://www.instagram.com/bizz.track_?igsh=MXY1cWUzMDl4ams3dw==" target="_blank" className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-teal-600 hover:text-white transition-colors duration-300" title="Instagram">
                 <Instagram size={18} />
               </Link>
-              <Link href="#" className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-teal-600 hover:text-white transition-colors duration-300">
-                <Linkedin size={18} />
+              <Link href="https://www.tiktok.com/@bizz.track?_r=1&_t=ZS-94PHVcQuJE2" target="_blank" className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-teal-600 hover:text-white transition-colors duration-300" title="TikTok">
+                <TikTokIcon size={18} />
               </Link>
-              <Link href="#" className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-teal-600 hover:text-white transition-colors duration-300">
-                <Twitter size={18} />
+              <Link href="https://www.facebook.com/share/18VjxTnAVc/?mibextid=wwXIfr" target="_blank" className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-teal-600 hover:text-white transition-colors duration-300" title="Facebook">
+                <Facebook size={18} />
+              </Link>
+              {/* Shopee diset link "#" karena masih menyusul */}
+              <Link href="#" className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-teal-600 hover:text-white transition-colors duration-300" title="Shopee (Menyusul)">
+                <ShoppingBag size={18} />
               </Link>
             </div>
           </div>
@@ -79,13 +100,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Kolom 4: Kontak Info */}
+          {/* Kolom 4: Kontak Info (Telah Direvisi) */}
           <div>
             <h3 className="text-white font-bold mb-6 text-lg">Hubungi Kami</h3>
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-teal-500 shrink-0 mt-0.5" />
-                <span className="text-slate-400">Magetan, Jawa Timur, Indonesia</span>
+                <span className="text-slate-400">Kota Madiun, Jawa Timur, Indonesia</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-teal-500 shrink-0" />
@@ -93,7 +114,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-teal-500 shrink-0" />
-                <span className="text-slate-400">halo@biztrack.id</span>
+                <span className="text-slate-400">bizztrack444@gmail.com</span>
               </li>
             </ul>
           </div>
@@ -102,7 +123,7 @@ export default function Footer() {
 
         {/* Bagian Bawah: Copyright */}
         <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-          <p>© {currentYear} BizTrack Digital Agency. Hak Cipta Dilindungi.</p>
+          <p>© {currentYear} BizzTrack Digital Agency. Hak Cipta Dilindungi.</p>
         </div>
 
       </div>
