@@ -1,11 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+// Tambahkan import hooks React dan GSAP
+import { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Send, Phone, CheckCircle2 } from 'lucide-react';
 import { submitContactForm } from '@/actions/contact';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 // Skema Validasi Zod
 const formSchema = z.object({
@@ -21,6 +24,9 @@ type FormData = z.infer<typeof formSchema>;
 export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<{ success?: boolean; message?: string } | null>(null);
+  
+  // Ref untuk menempelkan GSAP
+  const sectionRef = useRef<HTMLElement>(null);
 
   const {
     register,
@@ -46,19 +52,53 @@ export default function ContactSection() {
     }
   };
 
+  // Efek GSAP ScrollTrigger
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      // Menggunakan timeline agar animasinya berurutan dengan mulus
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%', // Animasi mulai saat section menyentuh 80% layar
+        }
+      });
+
+      tl.from('.contact-header', {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out'
+      })
+      .from('.contact-form', {
+        y: 60,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out'
+      }, '-=0.4'); // Dimulai 0.4 detik lebih awal sebelum header selesai
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="kontak" className="py-20 bg-white">
+    // Tempelkan ref di section utama
+    <section id="kontak" ref={sectionRef} className="py-20 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        
+        {/* Tambahkan class contact-header */}
+        <div className="contact-header text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
             Siap Mendigitalisasi <span className="text-teal-600">Bisnis Anda?</span>
           </h2>
           <p className="text-lg text-slate-600">
-            Isi form di bawah ini untuk konsultasi gratis. Tim BizTrack akan menghubungi Anda melalui WhatsApp.
+            Isi form di bawah ini untuk konsultasi gratis. Tim BizzTrack akan menghubungi Anda melalui WhatsApp.
           </p>
         </div>
 
-        <div className="bg-white rounded-3xl shadow-xl shadow-teal-500/10 border border-slate-100 p-8 md:p-12">
+        {/* Tambahkan class contact-form */}
+        <div className="contact-form bg-white rounded-3xl shadow-xl shadow-teal-500/10 border border-slate-100 p-8 md:p-12">
           {submitStatus?.success ? (
             <div className="text-center py-10">
               <CheckCircle2 className="mx-auto h-16 w-16 text-teal-500 mb-4" />
@@ -74,25 +114,20 @@ export default function ContactSection() {
           ) : (
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Nama Lengkap */}
                 <div>
-                  {/* Label dipertajam */}
                   <label className="block text-sm font-semibold text-slate-900 mb-2">Nama Lengkap *</label>
                   <input
                     {...register('name')}
-                    // Ditambahkan: text-slate-900 placeholder:text-slate-500
                     className="w-full px-4 py-3 rounded-xl border border-slate-300 text-slate-900 placeholder:text-slate-500 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition"
                     placeholder="Budi Santoso"
                   />
                   {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>}
                 </div>
 
-                {/* Nomor WhatsApp */}
                 <div>
                   <label className="block text-sm font-semibold text-slate-900 mb-2">Nomor WhatsApp *</label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      {/* Ikon diperjelas */}
                       <Phone size={18} className="text-slate-500" />
                     </div>
                     <input
@@ -106,7 +141,6 @@ export default function ContactSection() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Nama Bisnis */}
                 <div>
                   <label className="block text-sm font-semibold text-slate-900 mb-2">Nama Toko/Bisnis (Opsional)</label>
                   <input
@@ -116,12 +150,10 @@ export default function ContactSection() {
                   />
                 </div>
 
-                {/* Layanan yang diminati */}
                 <div>
                   <label className="block text-sm font-semibold text-slate-900 mb-2">Layanan yang Diminati *</label>
                   <select
                     {...register('interest')}
-                    // Ditambahkan: text-slate-900
                     className="w-full px-4 py-3 rounded-xl border border-slate-300 text-slate-900 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none transition bg-white"
                   >
                     <option value="">-- Pilih Layanan --</option>
@@ -134,7 +166,6 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              {/* Pesan Tambahan */}
               <div>
                 <label className="block text-sm font-semibold text-slate-900 mb-2">Ceritakan Kebutuhan Anda (Opsional)</label>
                 <textarea
@@ -145,14 +176,12 @@ export default function ContactSection() {
                 ></textarea>
               </div>
 
-              {/* Error Message dari Server */}
               {submitStatus?.success === false && (
                 <div className="p-4 bg-red-50 text-red-600 rounded-lg text-sm">
                   {submitStatus.message}
                 </div>
               )}
 
-              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={isSubmitting}

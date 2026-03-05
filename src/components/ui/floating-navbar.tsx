@@ -24,19 +24,15 @@ export const FloatingNav = ({
   const [visible, setVisible] = useState(false);
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
-    // Memastikan nilai current adalah angka
     if (typeof current === "number") {
       let direction = current! - scrollYProgress.getPrevious()!;
 
       if (scrollYProgress.get() < 0.05) {
-        // Jika di paling atas, sembunyikan navbar melayang (karena kita pakai navbar statis/hero)
         setVisible(false);
       } else {
         if (direction < 0) {
-          // Scroll ke atas -> Munculkan
           setVisible(true);
         } else {
-          // Scroll ke bawah -> Sembunyikan
           setVisible(false);
         }
       }
@@ -47,7 +43,7 @@ export const FloatingNav = ({
     <AnimatePresence mode="wait">
       <motion.div
         initial={{
-          opacity: 1,
+          opacity: 0,
           y: -100,
         }}
         animate={{
@@ -55,10 +51,12 @@ export const FloatingNav = ({
           opacity: visible ? 1 : 0,
         }}
         transition={{
-          duration: 0.2,
+          duration: 0.3,
+          ease: "easeOut"
         }}
         className={cn(
-          "flex max-w-fit fixed top-10 inset-x-0 mx-auto border border-slate-200 rounded-full bg-white/80 backdrop-blur-md shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-5000 px-6 py-4 items-center justify-center space-x-6",
+          // Mempercantik efek Glassmorphism & Shadow Tosca tipis
+          "flex max-w-fit fixed top-8 inset-x-0 mx-auto border border-white/40 rounded-full bg-white/70 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(20,184,166,0.15)] z-5000 px-4 py-3 items-center justify-center space-x-2 md:space-x-4",
           className
         )}
       >
@@ -67,18 +65,25 @@ export const FloatingNav = ({
             key={`link=${idx}`}
             href={navItem.link}
             className={cn(
-              "relative items-center flex space-x-1 text-slate-600 hover:text-teal-600 transition-colors"
+              "relative items-center flex space-x-2 text-slate-600 hover:text-teal-700 transition-colors px-4 py-2 rounded-full group"
             )}
           >
+            {/* Bubble Hover Effect */}
+            <span className="absolute inset-0 w-full h-full bg-slate-100/80 rounded-full scale-0 group-hover:scale-100 transition-transform duration-200 ease-out -z-10" />
+            
             <span className="block sm:hidden">{navItem.icon}</span>
-            <span className="hidden sm:block text-sm font-semibold">{navItem.name}</span>
+            <span className="hidden sm:block text-sm font-bold">{navItem.name}</span>
           </Link>
         ))}
         
         {/* Tombol khas Aceternity dengan efek glow di bawahnya */}
-        <Link href="#kontak" className="border text-sm font-bold relative border-slate-200 text-slate-900 px-6 py-2 rounded-full hover:bg-slate-50 transition-colors">
-          <span>Mulai Proyek</span>
-          <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-linear-to-r from-transparent via-teal-500 to-transparent h-px" />
+        <Link 
+          href="#kontak" 
+          className="relative border border-teal-500/30 text-teal-700 text-sm font-bold px-6 py-2 rounded-full hover:bg-teal-50 transition-colors overflow-hidden group ml-2"
+        >
+          <span className="relative z-10">Mulai Proyek</span>
+          {/* Garis gradasi diperbaiki menggunakan bg-gradient-to-r */}
+          <span className="absolute inset-x-0 w-3/4 mx-auto -bottom-px bg-linear-to-r from-transparent via-teal-500 to-transparent h-px opacity-70 group-hover:opacity-100 transition-opacity" />
         </Link>
       </motion.div>
     </AnimatePresence>
