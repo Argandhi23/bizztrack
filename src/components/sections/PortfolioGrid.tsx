@@ -167,4 +167,4 @@ export default function PortfolioGrid({ projects }: PortfolioGridProps) {
       })}
     </div>
   );
-}
+}   

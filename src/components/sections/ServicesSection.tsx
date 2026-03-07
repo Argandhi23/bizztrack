@@ -61,7 +61,10 @@ export default function ServicesSection() {
   }, []);
 
   return (
-    <section id="layanan" ref={sectionRef} className="py-24 bg-black relative z-10 overflow-hidden shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+    // Mengubah bg-black menjadi bg-slate-950 agar senada dengan bagian bawah
+    <section id="layanan" ref={sectionRef} className="py-24 bg-slate-950 relative z-10 overflow-hidden shadow-[0_-10px_40px_rgba(0,0,0,0.3)]">
+      
+      {/* Background Blob efek Glow */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 opacity-40">
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-teal-500/20 rounded-full mix-blend-screen filter blur-[100px] opacity-70"></div>
         <div className="absolute top-48 -left-24 w-72 h-72 bg-teal-400/10 rounded-full mix-blend-screen filter blur-[100px] opacity-50"></div>
@@ -71,7 +74,7 @@ export default function ServicesSection() {
         <div className="services-header text-center mb-16 md:mb-20">
           <span className="text-teal-400 font-semibold tracking-wider uppercase text-sm mb-3 block">Keahlian Kami</span>
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Solusi Digital untuk Bisnis Anda</h2>
-          <p className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
             Kami tidak sekadar membuat website, kami membangun sistem yang membantu bisnis Anda beroperasi lebih cerdas, cepat, dan menguntungkan.
           </p>
         </div>
@@ -79,17 +82,36 @@ export default function ServicesSection() {
         <div className="services-grid grid grid-cols-1 md:grid-cols-2 gap-8 justify-center max-w-4xl mx-auto">
           {services.map((service, index) => (
             <div key={index} className="service-card h-full">
-              <Tilt tiltMaxAngleX={10} tiltMaxAngleY={10} perspective={1000} scale={1.02} transitionSpeed={2000} glareEnable={true} glareMaxOpacity={0.15} glareColor="#2dd4bf" glarePosition="all" className="h-full rounded-3xl">
-                <div className="bg-neutral-900 rounded-3xl p-8 border border-teal-500/20 shadow-lg shadow-black/50 hover:shadow-teal-500/20 transition-all duration-500 group relative h-full flex flex-col">
+              <Tilt 
+                tiltMaxAngleX={10} 
+                tiltMaxAngleY={10} 
+                perspective={1000} 
+                scale={1.02} 
+                transitionSpeed={2000} 
+                glareEnable={true} 
+                glareMaxOpacity={0.15} 
+                glareColor="#2dd4bf" 
+                glarePosition="all" 
+                className="h-full rounded-3xl"
+              >
+                {/* Mengubah bg-neutral-900 menjadi bg-slate-900 */}
+                <div className="bg-slate-900 rounded-3xl p-8 border border-slate-800 shadow-lg shadow-black/40 hover:shadow-2xl hover:border-teal-500/40 hover:shadow-teal-500/20 transition-all duration-500 group relative h-full flex flex-col">
+                  
                   <div className="w-16 h-16 bg-teal-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-teal-400 transition-all duration-300">
-                    <div className="group-hover:text-slate-900 transition-colors duration-300">{service.icon}</div>
+                    <div className="group-hover:text-slate-900 transition-colors duration-300">
+                      {service.icon}
+                    </div>
                   </div>
+                  
                   <h3 className="text-2xl font-bold text-white">{service.title}</h3>
+                  
                   <div className="mt-3 mb-4">
                     <span className="text-4xl font-extrabold text-teal-400">{service.price}</span>
                     <span className="text-slate-400 text-sm ml-1">/project</span>
                   </div>
-                  <p className="text-slate-300 mb-6 leading-relaxed grow">{service.description}</p>
+                  
+                  <p className="text-slate-400 mb-6 leading-relaxed grow">{service.description}</p>
+                  
                   <ul className="space-y-3 mb-8">
                     {service.features.map((feature, idx) => (
                       <li key={idx} className="flex items-center text-slate-300 text-sm font-medium">
@@ -98,9 +120,11 @@ export default function ServicesSection() {
                       </li>
                     ))}
                   </ul>
+                  
                   <Link href="#kontak" className="inline-flex items-center text-teal-400 font-bold group-hover:text-teal-300 transition-colors mt-auto">
                     Konsultasi Sekarang <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
+
                 </div>
               </Tilt>
             </div>
