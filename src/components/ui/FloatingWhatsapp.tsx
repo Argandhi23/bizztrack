@@ -4,11 +4,12 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 export default function FloatingWhatsApp() {
-  // GANTI INI: Masukkan nomor WhatsApp Anda (gunakan 62, hilangkan angka 0 di depan)
-  const phoneNumber = "6285806912873"; 
+  // --- NOMOR WA DIUPDATE DI SINI --- 
+  // Menggunakan awalan 62 tanpa angka 0 di depan
+  const phoneNumber = "628133007267"; 
   
   // Pesan otomatis yang akan muncul di kolom chat klien
-  const message = "Halo Tim BizTrack! Saya melihat portofolio Anda dan tertarik untuk konsultasi mengenai pembuatan website/sistem digital untuk bisnis saya.";
+  const message = "Halo Tim BizzTrack! Saya melihat portofolio Anda dan tertarik untuk konsultasi mengenai pembuatan website/sistem digital untuk bisnis saya.";
   
   const waLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 

@@ -112,7 +112,8 @@ export default function Footer() {
               <Link href="https://www.facebook.com/share/18VjxTnAVc/?mibextid=wwXIfr" target="_blank" className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-teal-600 hover:text-white transition-colors duration-300" title="Facebook">
                 <Facebook size={18} />
               </Link>
-              <Link href="#" className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-teal-600 hover:text-white transition-colors duration-300" title="Shopee (Menyusul)">
+              {/* --- LINK SHOPEE DIUPDATE DI SINI --- */}
+              <Link href="https://id.shp.ee/qyauWpfy" target="_blank" className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-teal-600 hover:text-white transition-colors duration-300" title="Shopee">
                 <ShoppingBag size={18} />
               </Link>
             </div>
@@ -147,7 +148,8 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-teal-500 shrink-0" />
-                <span className="text-slate-400">+62 858-5343-3816</span>
+                {/* --- NOMOR WA DI FOOTER DIUPDATE DI SINI --- */}
+                <span className="text-slate-400">+62 813-3007-267</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-teal-500 shrink-0" />
